@@ -1,0 +1,11 @@
+{
+  "name": "2425-test-potions-asier-arguinchona",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
