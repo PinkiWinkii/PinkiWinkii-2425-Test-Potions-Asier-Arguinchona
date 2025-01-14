@@ -12,6 +12,7 @@ import getTotalDuration from './src/getTotalDuration';
 import elixirLesserCreationIngredients from './src/elixirLesserCreationIngredients';
 import elixirLeastCreationgIngredients from './src/elixirLeastCreationgIngredients';
 import elixirNormalCreationIngredients from './src/elixirNormalCreationIngredients';
+import elixirGreaterCreationIngredients from './src/elixirGreaterCreationIngredients';
 
 const ingredients = allIngredients;
 const diseases = allDiseases;
@@ -181,10 +182,6 @@ describe('Cauldron Potion Creation', () => {
         it('should calculate the attribute value as the average, rounded down to the nearest multiple of 5', () => {
           const potion = cauldron.createPotion(elixirNormalCreationIngredients);
 
-          console.log(potion);
-
-
-
           const totalValue = getTotalValue(elixirNormalCreationIngredients);
 
           //All are lesser, there are 3 ingredients so they all should give a total value of 30 (10 * 3) 
@@ -220,6 +217,54 @@ describe('Cauldron Potion Creation', () => {
 
           // Ensure duration is rounded down to the lowest
           expect(potionDuration).toBe(2);
+
+        });
+
+
+      });
+
+      describe('When all the effects are greater', () => {
+
+        it('should calculate the attribute value as the average, rounded down to the nearest multiple of 5', () => {
+          const potion = cauldron.createPotion(elixirGreaterCreationIngredients);
+
+          console.log(potion);
+
+          const totalValue = getTotalValue(elixirGreaterCreationIngredients);
+
+          //All are lesser, there are 3 ingredients so they all should give a total value of 30 (10 * 3) 
+          expect(totalValue).toBe(60);
+
+          const average = totalValue / elixirGreaterCreationIngredients.length;
+          const roundedValue = roundDownToMultipleOfFive(average);
+
+          expect(roundedValue).toBe(20);
+
+          // Get the modifier_value from the potion
+          const modifierValue = potion.modifier_value;
+
+          // Ensure modifier_value is rounded down to the nearest multiple of 5
+          expect(modifierValue).toBe(20);  // Check if potion also has the same modifier
+
+        });
+
+        it('should calculate the duration value as the average, rounded down to the lowest whole number', () => {
+          const potion = cauldron.createPotion(elixirGreaterCreationIngredients);
+
+          const totalDuration = getTotalDuration(elixirGreaterCreationIngredients);
+
+          //All are lesser, there are 3 ingredients so they all should give a total value of 30 (10 * 3) 
+          expect(totalDuration).toBe(9);
+
+          const averageDuration = Math.floor(totalDuration / elixirGreaterCreationIngredients.length);
+
+          expect(averageDuration).toBe(3);
+
+          // Get the duration from the potion
+          const potionDuration = potion.duration;
+
+          // Ensure duration is rounded down to the lowest
+          expect(potionDuration).toBe(3); // Check if potion also has the same duration
 
         });
 
