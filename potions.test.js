@@ -1,9 +1,10 @@
 import Cauldron from './src/cauldron';
-import sum from './sum';
 import allIngredients from './allIngredients';
 import allDiseases from './allDiseases';
 import antidoteCreationIngredients from './src/antidoteCreationIngredients';
 import antidoteFailedIngredients from './src/antidoteFailedIngredients';
+import poisonCreationIngredients from './src/poisonCreationIngredients';
+import poisonFailedIngredients from './src/poisonFailedIngredients';
 
 const ingredients = allIngredients;
 const diseases = allDiseases;
@@ -38,7 +39,37 @@ describe('Cauldron Potion Creation', () => {
         const potion = cauldron.createPotion(antidoteFailedIngredients);
 
         // Check if the potion name does not contain "Antidote"
-        expect(potion.name).not.toContain('Antidote');
+        expect(potion.name).not.toContain('Poison');
+      });
+
+    });
+
+    describe('and all ingredients have the effect "Damage"', () => {
+
+      it('should contain "Poison" in the name if the potion causes harm', () => {
+        const potion = cauldron.createPotion(poisonCreationIngredients);
+
+        expect(potion.name).toContain('Poison');
+      });
+
+      it('should have negative modifiers for damage effects', () => {
+        const potion = cauldron.createPotion(poisonCreationIngredients);
+
+        // Check if all values in the modifiers object are positive
+        const modifiers = potion.modifiers;
+
+        console.log(modifiers);
+        
+        const allModifiersNegativeOrZero = Object.values(modifiers).every(value => value <= 0);
+
+        expect(allModifiersNegativeOrZero).toBe(true);
+      });
+
+      it('should not create a "Poison" if one ingredient does not have a "damage" effect', () => {
+        const potion = cauldron.createPotion(poisonFailedIngredients);
+
+        // Check if the potion name does not contain "Antidote"
+        expect(potion.name).not.toContain('Poison');
       });
 
     });

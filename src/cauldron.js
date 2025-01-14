@@ -104,8 +104,8 @@ export default class Cauldron {
             potionToCreate = this.compareEffectsWithCursesToCreatePoison(allEffects);
         }
        
-        console.log("POTION TO CREATE");
-        console.log(potionToCreate);
+        // console.log("POTION TO CREATE");
+        // console.log(potionToCreate);
         
         if(potionToCreate != null)
         {
@@ -124,8 +124,10 @@ export default class Cauldron {
                 return new Antidote(createdModifier, id, "Antidote of " + name, description, type, antidote_effects);
             }
             if (hasDamage) {
+                console.log('INVERTING MODIFIERS');
+                
                 const newModifiers = this.invertModifiers(modifiers);
-                return new Poison(newModifiers, id, "Poison of " + name, description, type, poison_effects);
+                return new Poison(modifiers, id, "Poison of " + name, description, type, poison_effects);
             }
         }
 
@@ -245,10 +247,18 @@ export default class Cauldron {
 
     invertModifiers(modifiers) {
         // Invert the modifier values and keep 0 as 0
+        console.log('MODIFIERS NOW');
+        console.log(modifiers);
+        
+        
         const inverted = Object.fromEntries(
             Object.entries(modifiers).map(([key, value]) => [key, value === 0 ? 0 : -value])
         );
     
+        console.log('MODIFIERS AFTER CONVERSION');
+        console.log(inverted);
+        
+        
         return inverted;
     }
     
