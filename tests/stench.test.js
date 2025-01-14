@@ -1,13 +1,7 @@
 import allDiseases from "../allDiseases";
 import allIngredients from "../allIngredients";
-import antidoteCreationIngredients from "../src/antidoteCreationIngredients";
-import antidoteFailedIngredients from "../src/antidoteFailedIngredients";
 import Cauldron from "../src/cauldron";
-import poisonCreationIngredients from "../src/poisonCreationIngredients";
-import poisonFailedIngredients from "../src/poisonFailedIngredients";
-import { twoIngredientEssence,fourIngredientEssence, failedIngredientEssence, failedIngredientEssence2 } from "../src/essenceIngredients";
 import getTotalValue from "../src/getTotalValue";
-import threeIngredientEssence from "../src/essenceThreeIngredients";
 import { failedIngredientStench, failedIngredientStench2, fourIngredientStench, threeIngredientStench, twoIngredientStench } from "../src/stenchIngredients";
 
 const ingredients = allIngredients;
@@ -43,8 +37,6 @@ describe('Cauldron Potion Creation', () => {
 
               const potion = cauldron.createPotion(threeIngredientStench);
 
-              console.log(potion);   
-
               const totalValue = getTotalValue(threeIngredientStench);
 
               expect(totalValue).toBe(45);
@@ -59,9 +51,7 @@ describe('Cauldron Potion Creation', () => {
 
             it('should have the modifier increased by 80%', () => {
 
-              const potion = cauldron.createPotion(fourIngredientStench);
-
-              console.log(potion);   
+              const potion = cauldron.createPotion(fourIngredientStench); 
 
               const totalValue = getTotalValue(fourIngredientStench);
 
