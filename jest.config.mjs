@@ -8,6 +8,7 @@ const config = {
   transform: {
     '^.+\\.js$': 'babel-jest',  // Le indica a Jest que use Babel para transformar archivos JS
   },
+  verbose: true,
   // Aquí puedes agregar otras configuraciones de Jest según sea necesario
 };
 
