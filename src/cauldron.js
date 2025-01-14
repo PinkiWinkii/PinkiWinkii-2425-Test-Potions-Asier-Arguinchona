@@ -124,7 +124,7 @@ export default class Cauldron {
                 return new Antidote(createdModifier, id, "Antidote of " + name, description, type, antidote_effects);
             }
             if (hasDamage) {
-                console.log('INVERTING MODIFIERS');
+                // console.log('INVERTING MODIFIERS');
                 
                 const newModifiers = this.invertModifiers(modifiers);
                 return new Poison(modifiers, id, "Poison of " + name, description, type, poison_effects);
@@ -247,16 +247,16 @@ export default class Cauldron {
 
     invertModifiers(modifiers) {
         // Invert the modifier values and keep 0 as 0
-        console.log('MODIFIERS NOW');
-        console.log(modifiers);
+        // console.log('MODIFIERS NOW');
+        // console.log(modifiers);
         
         
         const inverted = Object.fromEntries(
             Object.entries(modifiers).map(([key, value]) => [key, value === 0 ? 0 : -value])
         );
     
-        console.log('MODIFIERS AFTER CONVERSION');
-        console.log(inverted);
+        // console.log('MODIFIERS AFTER CONVERSION');
+        // console.log(inverted);
         
         
         return inverted;
@@ -444,7 +444,16 @@ export default class Cauldron {
 
         let modifierValue = this.getTotalValue(ingredients);
         let modifierValueAverage = Math.floor(modifierValue / ingredients.length);
+
+        // console.log('MODIFIER VALUE AVERAGE');
+        // console.log(modifierValueAverage);
+        
+        
         let modifierValueAverageRoundedToLowerMultipleOfFive = this.roundDownToMultipleOfFive(modifierValueAverage);
+
+        // console.log('MODIFIER AFTER ROUNDING');
+        // console.log(modifierValueAverage);
+
         const modifier = this.determineElixirVenomModifier(modifierValueAverageRoundedToLowerMultipleOfFive);
         //let potionEffect = this.determineElixirVenomEffectName(matchingAttribute);
 
