@@ -1,4 +1,4 @@
-import Curse from "./curse";
+import Curse from "./curse.js";
 
 export default class Curses {
 

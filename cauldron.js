@@ -1,12 +1,7 @@
-import Ingredient from "./ingredient.tsx";
-import Potion,{Antidote, Poison, Elixir, Venom, Essence, Stench, FailedPotion, PurificationPotion } from "./potion.tsx";
-import { essence_ingredients_number, essence_ingridient_multipliers } from "./constants.tsx";
-import { Effect } from "./potionsInterface.tsx";
-import Curse from "./curse.tsx";
-import { Modifiers } from "./curse.tsx";
+import Potion,{Antidote, Poison, Elixir, Venom, Essence, Stench, FailedPotion, PurificationPotion } from "./potion.js";
+import { essence_ingredients_number, essence_ingridient_multipliers } from "./constants.js";
 
 export default class Cauldron {
-
 
     constructor(ingredients, curses) {
         this.ingredients = ingredients;

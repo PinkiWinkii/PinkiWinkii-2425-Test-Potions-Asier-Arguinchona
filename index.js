@@ -1,43 +1,36 @@
-import Ingredients from "./ingredients.tsx";
-import Cauldron from "./cauldron.tsx";
-import PotionBag from "./PotionBag.tsx";
-import Potion from "./potion.tsx";
-import Curses from "./curses.tsx";
-import { getIngredientsData } from "./service.js";
+import Cauldron from "./cauldron.js";
+import { getDiesesData, getIngredientsData } from "./service.js";
 
 const executePotionCreation = async() => {
     try {
-        console.log("ENTRA A LA FUNCION");
+        console.log("EXECUTING POTION CREATION");
         
-        ingredientsData = getIngredientsData();
-        console.log(ingredientsData);
-        
+        const ingredientsJson = await getIngredientsData();
+        // console.log('INGREDIENT JSON');
+        // console.log(ingredientsJson);
 
-        // const fakeIngredients = require('./../../fakedata/fake-ingredients.json');
-        // const fakeCurses = require('./../../fakedata/fake-curses.json');
+        const ingredientsData = ingredientsJson.data;
+        // console.log('INGREDIENT DATA');
+        // console.log(ingredientsData[1]);
 
-        //console.log(fakeIngredients);
+        const diseasesJson = await getDiesesData();
+        const diseasesData = diseasesJson.data;
+        // console.log('DISEASES DATA');
+        // console.log(diseasesData[0]);
         
-        // const ingredients = Ingredients.load(fakeIngredients).ingredients;
-        // const curses = Curses.load(fakeCurses).curses;
+        const ingredients = ingredientsData;
+        const curses = diseasesData;
+        
+        const ingredientsArray = [ingredients[14], ingredients[20]]
 
-        //console.log("CURSES");
-        //console.log(curses);
-        
-        //console.log("INGREDIENTS: " + ingredients);
-        
-        //console.log("FIRST INGREDIENT: " +  ingredients[0].name);
-        
-        // const ingredientsArray = [ingredients[14], ingredients[20]]
-
-        // const cauldron = new Cauldron(ingredients, curses);
-
+        const cauldron = new Cauldron(ingredients, curses);
+         
         //console.log("CAULDRON INGREDIENTS: " + cauldron.ingredients);
         
-        // const potion = cauldron.createPotion(ingredientsArray)
+        const potion = cauldron.createPotion(ingredientsArray)
 
-        // console.log("Created potion");
-        // console.log(potion);
+        console.log("Created potion");
+        console.log(potion);
         
 
 
@@ -50,3 +43,5 @@ const executePotionCreation = async() => {
 
 // Export the execute function without calling it
 export default executePotionCreation;
+
+executePotionCreation();

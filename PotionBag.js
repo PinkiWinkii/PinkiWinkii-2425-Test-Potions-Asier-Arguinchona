@@ -1,6 +1,6 @@
-import Cauldron from "./cauldron";
-import Ingredient from "./ingredient";
-import Potion from "./potion";
+import Cauldron from "./cauldron.js";
+import Ingredient from "./ingredient.js";
+import Potion from "./potion.js";
 
 export default class PotionBag {
 

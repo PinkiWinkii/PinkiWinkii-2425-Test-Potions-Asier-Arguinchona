@@ -1,4 +1,4 @@
-import Effect from "./effect.tsx";
+import Effect from "./effect.js";
 
 export default class Ingredient {
 

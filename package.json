@@ -4,9 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "npm test",
-    "start": "npm start"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "type": "module"
 }
