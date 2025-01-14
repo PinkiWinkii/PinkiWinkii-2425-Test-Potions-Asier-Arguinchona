@@ -11,8 +11,8 @@ export default class Cauldron {
     // Ahora recibe directamente un array de Ingredient
     createPotion(ingredients) {
 
-        console.log("Ingredientes insertados:");
-        console.log(ingredients);
+        //console.log("Ingredientes insertados:");
+        //console.log(ingredients);
         
         
         if (ingredients.length < 2) {
@@ -25,40 +25,40 @@ export default class Cauldron {
 
 
 
-        console.log("ALL EFFECTS:"); 
-        console.log(allEffects);
+        //console.log("ALL EFFECTS:"); 
+        //console.log(allEffects);
         
-        console.log("COMMON EFFECTS");
-        console.log(commonEffects);
+        //console.log("COMMON EFFECTS");
+        //console.log(commonEffects);
 
         const attributes = ["hit_points", "constitution", "charisma", "insanity", "dexterity", "strength", "intelligence", "calm", "frenzy", "boost", "setback", "cleanse"];
         const matchingAttribute = attributes.find(attr => 
             allEffects.every(effect => effect.includes(attr))
         );
 
-        console.log("COMMON EFFECT 2");
-        console.log(matchingAttribute);
+        //console.log("COMMON EFFECT 2");
+        //console.log(matchingAttribute);
         
         if (ingredients.length === 2 &&
             ingredients.some(ingredient => ingredient.name === "Dragon's Blood Resin") &&
             ingredients.some(ingredient => ingredient.name === "Gloomshade Moss")) {
-            console.log("HA ENTRADO A CREAR POCION DE PURIFICACION");
+            //console.log("HA ENTRADO A CREAR POCION DE PURIFICACION");
                 
             return this.createPurificationPotion();
         }
 
-        console.log(ingredients);
+        //console.log(ingredients);
         
-        console.log(ingredients.length);
-        console.log(ingredients[0].name);
-        console.log(ingredients[1].name);
+        //console.log(ingredients.length);
+        //console.log(ingredients[0].name);
+        //console.log(ingredients[1].name);
         
         
         
         // Si no hay efectos comunes
         if (!commonEffects) {
 
-            console.log("NO HAY EFECTOS COMUNES");
+            //console.log("NO HAY EFECTOS COMUNES");
             return this.createNonCommonPotion(ingredients, allEffects);
         }
         else
@@ -66,17 +66,17 @@ export default class Cauldron {
             const hitPointsEffects = allEffects.filter(effect => effect.includes("hit_points"));
 
 
-            console.log("HITPOINT EFFECTS");
-            console.log(hitPointsEffects);
+            //console.log("HITPOINT EFFECTS");
+            //console.log(hitPointsEffects);
     
     
             if (hitPointsEffects.length > 0) {
-                console.log("HAY EFECTOS COMUNES HITPOINTS");
+                //console.log("HAY EFECTOS COMUNES HITPOINTS");
                 return this.createHitPointsPotion(hitPointsEffects, ingredients);
             }
     
             // Si los efectos son iguales
-            console.log("HAY EFECTOS COMUNES QUE NO SON HITPOINTS");
+            //console.log("HAY EFECTOS COMUNES QUE NO SON HITPOINTS");
             if(matchingAttribute != 'boost' && matchingAttribute != 'setback') {
                 return this.createPotionFromEqualEffects(allEffects, ingredients);
             } else {
@@ -89,7 +89,7 @@ export default class Cauldron {
 
     createNonCommonPotion(ingredients, allEffects) {
 
-        console.log("SE VA A CREAR UN ANTIDOTE / POISON ");
+        //console.log("SE VA A CREAR UN ANTIDOTE / POISON ");
 
         const hasRestore = allEffects.some(effect => effect.includes("restore"));
         const hasDamage = allEffects.some(effect => effect.includes("damage"));
@@ -97,14 +97,14 @@ export default class Cauldron {
         let potionToCreate = null;
 
         if(hasRestore){
-            console.log("Has restore");        
+            //console.log("Has restore");        
             potionToCreate = this.compareEffectsWithCursesToCreateAntidote(allEffects);
         } else if(hasDamage){
-            console.log("Has damage");  
+            //console.log("Has damage");  
             potionToCreate = this.compareEffectsWithCursesToCreatePoison(allEffects);
         }
        
-        console.log("POSION TO CREATE");
+        console.log("POTION TO CREATE");
         console.log(potionToCreate);
         
         if(potionToCreate != null)
@@ -146,13 +146,13 @@ export default class Cauldron {
         const prefixes = ["least", "lesser", "greater"];
 
         effects.forEach(item => {
-            console.log(item);
+            //console.log(item);
             
             const affectedAttribute = attributes.find(attribute => item.includes(attribute));
             const rarity = prefixes.find(rarity => item.startsWith(rarity)) || "no prefix";
             
-            console.log("ATTR");
-            console.log(affectedAttribute);
+            //console.log("ATTR");
+            //console.log(affectedAttribute);
             
             
 
@@ -171,7 +171,7 @@ export default class Cauldron {
 
             case "constitution" || "dexterity" || "strength" || "charisma" || "intelligence":
 
-                console.log("CHANGED NORMAL ATTR");
+                //console.log("CHANGED NORMAL ATTR");
                 
 
                 let value = 0;
@@ -192,7 +192,7 @@ export default class Cauldron {
 
             case "hit_points":
 
-                console.log("CHANGED HITPOINT ATTR");
+                //console.log("CHANGED HITPOINT ATTR");
 
                 let valueHitPoints = 0;
 
@@ -233,8 +233,8 @@ export default class Cauldron {
                 
         }
 
-        console.log("MODIFIER NOW");
-        console.log(modifier);
+        //console.log("MODIFIER NOW");
+        //console.log(modifier);
 
         return modifier;
     }
@@ -256,11 +256,11 @@ export default class Cauldron {
     {
         for(let i = 0; i < this.curses.length; i++)
         {
-            console.log("POISON EFFECTS");
-            console.log(this.curses[i].poison_effects.sort().join(','));
+            //console.log("POISON EFFECTS");
+            //console.log(this.curses[i].poison_effects.sort().join(','));
     
-            console.log("ANTIDOTE EFFECTS");
-            console.log(this.curses[i].antidote_effects.sort().join(','));
+            //console.log("ANTIDOTE EFFECTS");
+            //console.log(this.curses[i].antidote_effects.sort().join(','));
 
             if(this.curses[i].antidote_effects.sort().join(',') === effectsToCompare.sort().join(',')){
                 //SAME EFFECTS
@@ -277,22 +277,22 @@ export default class Cauldron {
         let isAntidote = false;
         for(let i = 0; i < this.curses.length; i++)
         {
-            console.log("POISON EFFECTS");
-            console.log(this.curses[i].poison_effects.sort().join(','));
+            //console.log("POISON EFFECTS");
+            //console.log(this.curses[i].poison_effects.sort().join(','));
 
-            console.log("ANTIDOTE EFFECTS");
-            console.log(this.curses[i].antidote_effects.sort().join(','));
+            //console.log("ANTIDOTE EFFECTS");
+            //console.log(this.curses[i].antidote_effects.sort().join(','));
             
             if(this.curses[i].poison_effects.sort().join(',') === effectsToCompare.sort().join(',')){
                 //SAME EFFECTS
                 isPoison = true;
-                console.log("CREADO POISON");
+                //console.log("CREADO POISON");
                 
             }
 
             if (this.curses[i].antidote_effects.sort().join(',') === effectsToCompare.sort().join(',')){
                 isAntidote = true;
-                console.log("CREADO ANTIDOTE");     
+                //console.log("CREADO ANTIDOTE");     
             }
 
             if(isPoison || isAntidote) {
@@ -307,19 +307,19 @@ export default class Cauldron {
 
     createHitPointsPotion(hitPointsEffects, ingredients) {
 
-        console.log("SE VA A CREAR UN ESSENCE / STENCH POTION");
+        //console.log("SE VA A CREAR UN ESSENCE / STENCH POTION");
 
         const minimumEffect = this.findMinimumEffect(ingredients);
-        console.log("MINIMUM EFFECT");
-        console.log(minimumEffect);
+        //console.log("MINIMUM EFFECT");
+        //console.log(minimumEffect);
 
         const ingredientQuantity = ingredients.length;
         let modifier = 1;
         let potionValue = this.getTotalValue(ingredients);
         let modifierName = minimumEffect.minimumEffect;
 
-        console.log("POTION VALUE");
-        console.log(potionValue);
+        //console.log("POTION VALUE");
+        //console.log(potionValue);
 
         if(minimumEffect.allAreMinimum){
             switch(ingredientQuantity){
@@ -345,8 +345,8 @@ export default class Cauldron {
         }
 
 
-        console.log("MODIFIER");
-        console.log(modifier);
+        //console.log("MODIFIER");
+        //console.log(modifier);
         
         potionValue = Math.ceil(potionValue * modifier);
 
@@ -361,9 +361,9 @@ export default class Cauldron {
                          hitPointsEffects.some(effect => effect.includes("damage")) ;
 
 
-        console.log("hasIncrease: " + hasIncrease);
-        console.log("hasDecrease: " + hasDecrease);
-        console.log("isFailed: " + isFailed);
+        //console.log("hasIncrease: " + hasIncrease);
+        //console.log("hasDecrease: " + hasDecrease);
+        //console.log("isFailed: " + isFailed);
         
         if(isFailed){
 
@@ -385,7 +385,7 @@ export default class Cauldron {
         const isRestore = effect.includes("boost") || 
                           effect.includes("calm");
 
-        console.log("EFFECT IS: " + effect);
+        //console.log("EFFECT IS: " + effect);
         
         
         const isDamage = effect.includes("setback") || 
@@ -396,14 +396,14 @@ export default class Cauldron {
                          effect.includes("restore") || 
                          effect.includes("damage");
 
-        console.log("HA CREADO UNA POCION DE IGUALES EFECTOS");
-        console.log("isFailed: " + isFailed);
-        console.log("isRestore: " + isRestore);
-        console.log("isDamage: " + isDamage);
+        //console.log("HA CREADO UNA POCION DE IGUALES EFECTOS");
+        //console.log("isFailed: " + isFailed);
+        //console.log("isRestore: " + isRestore);
+        //console.log("isDamage: " + isDamage);
         
         if(isFailed)
         {
-            console.log("ES FAILED ");
+            //console.log("ES FAILED ");
             
             return new FailedPotion("Tonic of Downfall", 0);
         }
@@ -419,8 +419,8 @@ export default class Cauldron {
         const attributes = ["constitution", "charisma", "insanity", "dexterity", "strength", "intelligence", "calm", "frenzy", "boost", "setback"];
         const matchingAttribute = attributes.find(attr => effect.includes(attr));
 
-        console.log("Matching Attribute in create from equal: " + matchingAttribute);
-        console.log(matchingAttribute);
+        //console.log("Matching Attribute in create from equal: " + matchingAttribute);
+        //console.log(matchingAttribute);
         
 
         // Capitalize the first letter
@@ -456,8 +456,8 @@ export default class Cauldron {
 
         } 
 
-        console.log("MATCHING ATTR");
-        console.log(matchingAttribute);
+        //console.log("MATCHING ATTR");
+        //console.log(matchingAttribute);
 
         switch(matchingAttribute) {
             case 'calm':
@@ -470,13 +470,13 @@ export default class Cauldron {
                 break;
         }
 
-        console.log("MODIFIER VALUE BEFORE RETURNING POTION");
-        console.log(modifierValueAverageRoundedToLowerMultipleOfFive);
+        //console.log("MODIFIER VALUE BEFORE RETURNING POTION");
+        //console.log(modifierValueAverageRoundedToLowerMultipleOfFive);
 
         
 
         if(isRestore){
-            console.log("SE VA A CREAR ELIXIR PORQUE ISRESTORE ES TRUE");
+            //console.log("SE VA A CREAR ELIXIR PORQUE ISRESTORE ES TRUE");
             
             return new Elixir(potionName, potionEffect, modifierValueAverageRoundedToLowerMultipleOfFive, duration, affectedAttribute)
         }
@@ -486,7 +486,7 @@ export default class Cauldron {
         }
         else
         {
-            console.log("SE HA CREADO UN FAILED POTION AL FINAL DE LA FUNCION");
+            //console.log("SE HA CREADO UN FAILED POTION AL FINAL DE LA FUNCION");
             
             return new FailedPotion("Tonic of Downfall", 0);
         }
@@ -557,8 +557,8 @@ export default class Cauldron {
         // Extraemos los rarities de todos los ingredientes
         const allEffects = ingredients.flatMap(ingredient => ingredient.effects.map(effect => getEffectRarity(effect)));
     
-        console.log("ALL EFFECTS");
-        console.log(allEffects);
+        //console.log("ALL EFFECTS");
+        //console.log(allEffects);
         
         // Find minimum effect
         const uniqueEffects = [...new Set(allEffects)]; // Eliminate duplicates
