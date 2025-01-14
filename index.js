@@ -1,4 +1,4 @@
-import Cauldron from "./cauldron.js";
+import Cauldron from "./src/cauldron.js";
 import { getDiesesData, getIngredientsData } from "./service.js";
 
 const executePotionCreation = async() => {
