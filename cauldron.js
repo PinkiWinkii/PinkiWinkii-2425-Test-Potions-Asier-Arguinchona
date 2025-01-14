@@ -6,16 +6,15 @@ import Curse from "./curse.tsx";
 import { Modifiers } from "./curse.tsx";
 
 export default class Cauldron {
-    ingredients: Ingredient[];
-    curses: Curse[];
 
-    constructor(ingredients: Ingredient[], curses: Curse[]) {
+
+    constructor(ingredients, curses) {
         this.ingredients = ingredients;
         this.curses = curses;
     }
 
     // Ahora recibe directamente un array de Ingredient
-    createPotion(ingredients: Ingredient[]): Potion {
+    createPotion(ingredients) {
 
         console.log("Ingredientes insertados:");
         console.log(ingredients);
@@ -93,7 +92,7 @@ export default class Cauldron {
        
     }
 
-    private createNonCommonPotion(ingredients: Ingredient[], allEffects: string[]): Potion {
+    createNonCommonPotion(ingredients, allEffects) {
 
         console.log("SE VA A CREAR UN ANTIDOTE / POISON ");
 
@@ -115,15 +114,15 @@ export default class Cauldron {
         
         if(potionToCreate != null)
         {
-            const name = potionToCreate?.name!;
-            let modifiers: Modifiers = potionToCreate?.modifiers!;
-            const id = potionToCreate?._id!;
-            const description = potionToCreate?.description!;
-            const type = potionToCreate?.type!;
-            const poison_effects = potionToCreate?.poison_effects!;
-            const antidote_effects = potionToCreate?.antidote_effects!;
+            const name = potionToCreate.name;
+            let modifiers = potionToCreate?.modifiers;
+            const id = potionToCreate._id;
+            const description = potionToCreate.description;
+            const type = potionToCreate.type;
+            const poison_effects = potionToCreate.poison_effects;
+            const antidote_effects = potionToCreate.antidote_effects;
 
-            let createdModifier: Modifiers = this.createRandomModifiers(allEffects);
+            let createdModifier = this.createRandomModifiers(allEffects);
 
             if (hasRestore) {
 
@@ -138,9 +137,9 @@ export default class Cauldron {
         return new FailedPotion("Tonic of Dawnfall", 0);
     }
     
-    private createRandomModifiers(effects: string[])
+    createRandomModifiers(effects)
     {
-        let modifier: Modifiers =   {hit_points: 0, 
+        let modifier =   {hit_points: 0, 
                                     intelligence: 0, 
                                     dexterity: 0, 
                                     insanity: 0, 
@@ -148,7 +147,7 @@ export default class Cauldron {
                                     constitution: 0, 
                                     strength: 0};
 
-        const attributes: (keyof Modifiers)[] = ["constitution", "hit_points", "dexterity", "strength", "charisma", "intelligence", "insanity"];
+        const attributes = ["constitution", "hit_points", "dexterity", "strength", "charisma", "intelligence", "insanity"];
         const prefixes = ["least", "lesser", "greater"];
 
         effects.forEach(item => {
@@ -162,7 +161,7 @@ export default class Cauldron {
             
             
 
-            modifier = this.determineAffectedAttributeAndAddToModifier(modifier, affectedAttribute!, rarity);
+            modifier = this.determineAffectedAttributeAndAddToModifier(modifier, affectedAttribute, rarity);
 
         })
         
@@ -170,7 +169,7 @@ export default class Cauldron {
                                     
     }
 
-    private determineAffectedAttributeAndAddToModifier(modifier: Modifiers, attribute: string, rarity: string)
+    determineAffectedAttributeAndAddToModifier(modifier, attribute, rarity)
     {
         switch(attribute)
         {
@@ -245,20 +244,20 @@ export default class Cauldron {
         return modifier;
     }
 
-    private getRandomModifierNumber(min: number, max: number): number {
+    getRandomModifierNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    private invertModifiers(modifiers: Modifiers): Modifiers {
+    invertModifiers(modifiers) {
         // Invert the modifier values and keep 0 as 0
         const inverted = Object.fromEntries(
             Object.entries(modifiers).map(([key, value]) => [key, value === 0 ? 0 : -value])
-        ) as unknown as Modifiers;
+        );
     
         return inverted;
     }
     
-    private compareEffectsWithCursesToCreateAntidote(effectsToCompare: string[])
+    compareEffectsWithCursesToCreateAntidote(effectsToCompare)
     {
         for(let i = 0; i < this.curses.length; i++)
         {
@@ -277,7 +276,7 @@ export default class Cauldron {
         return null;
     }
 
-    private compareEffectsWithCursesToCreatePoison(effectsToCompare: string[])
+    compareEffectsWithCursesToCreatePoison(effectsToCompare)
     {
         let isPoison = false;
         let isAntidote = false;
@@ -311,7 +310,7 @@ export default class Cauldron {
         return null;
     }
 
-    private createHitPointsPotion(hitPointsEffects: string[], ingredients: Ingredient[]): Potion {
+    createHitPointsPotion(hitPointsEffects, ingredients) {
 
         console.log("SE VA A CREAR UN ESSENCE / STENCH POTION");
 
@@ -386,7 +385,7 @@ export default class Cauldron {
         return new FailedPotion("Tonic of Downfall", 0);
     }
 
-    private createPotionFromEqualEffects(effects: string[], ingredients: Ingredient[]): Potion {
+    createPotionFromEqualEffects(effects, ingredients) {
         const effect = effects[0]; // Asumimos que todos son iguales en este caso
         const isRestore = effect.includes("boost") || 
                           effect.includes("calm");
@@ -484,11 +483,11 @@ export default class Cauldron {
         if(isRestore){
             console.log("SE VA A CREAR ELIXIR PORQUE ISRESTORE ES TRUE");
             
-            return new Elixir(potionName, potionEffect, modifierValueAverageRoundedToLowerMultipleOfFive, duration, affectedAttribute!)
+            return new Elixir(potionName, potionEffect, modifierValueAverageRoundedToLowerMultipleOfFive, duration, affectedAttribute)
         }
         else if(isDamage)
         {
-           return new Venom(potionName, potionEffect, modifierValueAverageRoundedToLowerMultipleOfFive, duration, affectedAttribute!);
+           return new Venom(potionName, potionEffect, modifierValueAverageRoundedToLowerMultipleOfFive, duration, affectedAttribute);
         }
         else
         {
@@ -499,11 +498,11 @@ export default class Cauldron {
 
     }
 
-    private roundDownToMultipleOfFive(num: number): number {
+    roundDownToMultipleOfFive(num){
         return num - (num % 5);
     }
 
-    private determineSingleEffectModifier(effect: string): string {
+    determineSingleEffectModifier(effect){
         if (effect.includes("least")) {
             return "Least";
         } else if (effect.includes("lesser")) {
@@ -514,7 +513,7 @@ export default class Cauldron {
         return ""; // Sin prefijo
     }
 
-    private determineModifier(effects: string[]): string {
+    determineModifier(effects){
         if (effects.some(effect => effect.includes("least"))) {
             return "Least";
         } else if (effects.some(effect => effect.includes("lesser"))) {
@@ -525,7 +524,7 @@ export default class Cauldron {
         return ""; // Sin prefijo
     }
 
-    private determineElixirVenomModifier(modifierValue: number): string {
+    determineElixirVenomModifier(modifierValue){
         if (modifierValue <= 5) {
             return "Least";
         } else if (modifierValue <= 10) {
@@ -537,7 +536,7 @@ export default class Cauldron {
         }
     }
 
-    private findCommonEffects(ingredients: Ingredient[]): boolean {
+    findCommonEffects(ingredients){
         const attributes = ["points", "constitution", "charisma", "insanity", "dexterity", "strength", "intelligence", "calm", "frenzy", "boost", "setback", "cleanse"];
     
         // Check if any attribute is present in the effects array of every ingredient
@@ -548,12 +547,12 @@ export default class Cauldron {
         );
     }
     
-    private findMinimumEffect(ingredients: Ingredient[]): { minimumEffect: string, allAreMinimum: boolean } {
+    findMinimumEffect(ingredients){
         // Definimos el orden de los efectos
-        const effectOrder: string[] = [ "least", "lesser", "normal", "greater"];
+        const effectOrder = [ "least", "lesser", "normal", "greater"];
     
         // Función para extraer el tipo de rareza
-        const getEffectRarity = (effect: string): string => {
+        const getEffectRarity = (effect) => {
             if (effect.includes("least")) return "least";
             if (effect.includes("lesser")) return "lesser";
             if (effect.includes("greater")) return "greater";
@@ -578,13 +577,13 @@ export default class Cauldron {
         return { minimumEffect, allAreMinimum };
     }
     
-    private getTotalValue(ingredients: Ingredient[])
+    getTotalValue(ingredients)
     {
         // Initialize in 0
         let totalValue = 0;
 
         //Function to obtain the effect of an ingredient and the corresponding value
-        const getEffectValue = (effect: string): number => {
+        const getEffectValue = (effect) => {
             if (effect.includes("least")) return 5;    // Effect "least"
             if (effect.includes("lesser")) return 10;  // Effect "lesser"
             if (effect.includes("greater")) return 20;  // Effect "greater"
@@ -602,13 +601,13 @@ export default class Cauldron {
         return totalValue;
     }
 
-    private getTotalDuration(ingredients: Ingredient[])
+    getTotalDuration(ingredients)
     {
         // Initialize in 0
         let totalDuration = 0;
 
         //Function to obtain the effect of an ingredient and the corresponding value
-        const getEffectDuration = (effect: string): number => {
+        const getEffectDuration = (effect) => {
             if (effect.includes("least")) return 1;    // Effect "least"
             if (effect.includes("lesser")) return 1;
             if (effect.includes("greater")) return 3;  // Effect "greater"
@@ -626,7 +625,7 @@ export default class Cauldron {
         return totalDuration;
     }
     
-    private createPurificationPotion(){
+    createPurificationPotion(){
         return new PurificationPotion("Potion of Purification", 0);
     }
 }
