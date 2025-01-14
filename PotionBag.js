@@ -3,10 +3,8 @@ import Ingredient from "./ingredient";
 import Potion from "./potion";
 
 export default class PotionBag {
-    
-    potions: Potion[];
 
-    constructor(potions: Potion[]){
+    constructor(potions){
         this.potions = potions;
     }
 

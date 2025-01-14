@@ -2,13 +2,12 @@ import Curse from "./curse";
 
 export default class Curses {
 
-    curses: Curse[];
 
-    constructor(curses: any){
+    constructor(curses){
         this.curses = curses;
     }
 
-    static load(data: any) {
+    static load(data) {
         return new Curses(data.data.map(Curse.from))
     }
 

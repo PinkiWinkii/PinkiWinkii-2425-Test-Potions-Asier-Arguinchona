@@ -2,17 +2,9 @@ import Effect from "./effect.tsx";
 
 export default class Ingredient {
 
-    _id: string;
-    name: string;
-    description: string;
-    value: number;
-    effects: string[];
-    image: string;
-    type: string;
-    key: any;
-    qty: number
 
-    constructor(_id: string, name: string, description: string, value: number, effects: string[], image: string, type: string, qty: number) {
+
+    constructor(_id, name, description, value, effects, image, type, qty) {
         this._id = _id;
         this.name = name;
         this.description = description;
@@ -24,7 +16,7 @@ export default class Ingredient {
         this.qty = qty
     }
 
-    static from({ _id, name, description, value, effects, image, type, qty }: { _id: string, name: string; description: string; value: number; effects: string[]; image: string; type: string, qty: number }) {
+    static from(_id, name, description, value, effects, image, type, qty) {
         return new Ingredient(
             _id,
             name,
