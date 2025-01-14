@@ -1,10 +1,10 @@
-const elixirCalmLesser = [{
+const elixirFailedIngredients2 = [{
   "_id": "6702b4f876863c206a48cd1c",
   "name": "Frostmoss",
   "description": "A cold moss that increases agility and dexterity.",
   "value": 35,
   "effects": [
-    "lesser_calm"
+    "increase_dexterity"
   ],
   "image": "/images/ingredients/boost/boost_9.webp",
   "type": "ingredient"
@@ -15,7 +15,7 @@ const elixirCalmLesser = [{
   "description": "A cold moss that increases agility and dexterity.",
   "value": 35,
   "effects": [
-    "lesser_calm"
+    "restore_intelligence"
   ],
   "image": "/images/ingredients/boost/boost_9.webp",
   "type": "ingredient"
@@ -26,10 +26,10 @@ const elixirCalmLesser = [{
   "description": "A cold moss that increases agility and dexterity.",
   "value": 35,
   "effects": [
-    "lesser_calm"
+    "increase_boost_constitution"
   ],
   "image": "/images/ingredients/boost/boost_9.webp",
   "type": "ingredient"
 }]
 
-export default elixirCalmLesser;
+export default elixirFailedIngredients2;

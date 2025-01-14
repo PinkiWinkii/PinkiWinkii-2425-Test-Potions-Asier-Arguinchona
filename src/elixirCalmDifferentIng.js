@@ -1,10 +1,10 @@
-const elixirCalmLesser = [{
+const elixirCalmDifferentIng = [{
   "_id": "6702b4f876863c206a48cd1c",
   "name": "Frostmoss",
   "description": "A cold moss that increases agility and dexterity.",
   "value": 35,
   "effects": [
-    "lesser_calm"
+    "calm_dexterity"
   ],
   "image": "/images/ingredients/boost/boost_9.webp",
   "type": "ingredient"
@@ -15,7 +15,7 @@ const elixirCalmLesser = [{
   "description": "A cold moss that increases agility and dexterity.",
   "value": 35,
   "effects": [
-    "lesser_calm"
+    "greater_calm_dexterity"
   ],
   "image": "/images/ingredients/boost/boost_9.webp",
   "type": "ingredient"
@@ -26,10 +26,21 @@ const elixirCalmLesser = [{
   "description": "A cold moss that increases agility and dexterity.",
   "value": 35,
   "effects": [
-    "lesser_calm"
+    "lesser_calm_dexterity"
+  ],
+  "image": "/images/ingredients/boost/boost_9.webp",
+  "type": "ingredient"
+},
+{
+  "_id": "6702b4f876863c206a48cd1c",
+  "name": "Frostmoss",
+  "description": "A cold moss that increases agility and dexterity.",
+  "value": 35,
+  "effects": [
+    "lesser_calm_dexterity"
   ],
   "image": "/images/ingredients/boost/boost_9.webp",
   "type": "ingredient"
 }]
 
-export default elixirCalmLesser;
+export default elixirCalmDifferentIng;
